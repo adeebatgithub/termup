@@ -154,7 +154,7 @@ basic () {
     change_ps1
 }
 
-check_folder_exista () {
+check_folder_exists () {
     if [ -d "$BASE_DIR" ]; then
         :
     else 
