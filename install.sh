@@ -2,13 +2,16 @@
 create_folder() {
     local path=$1
     mkdir -p "$path"
-    printf "created $path\n"
+    printf "created %s\n" "$path"
 }
 
-folder_exists () {
+folder_exists() {
     local path=$1
     if [ -d "$path" ]; then
+        echo "$path exists"
         return 0
+    else
+        return 1
     fi
 }
 
@@ -22,8 +25,8 @@ folder_exists "$BASE_DIR/etc"||create_folder "$BASE_DIR/etc"
 folder_exists "$BASE_DIR/lib"||create_folder "$BASE_DIR/lib"
 
 cp ./setup_termux.sh $BASE_DIR/lib&&echo "copied setup_termux.sh $BASE_DIR/lib"
-
 cp -r ./.gyp $BASE_DIR/etc&&echo copied gyp $BASE_DIR/etc||exit 0
+cp -r ./motd $BASE_DIR/etc&&echo copied motd $BASE_DIR/etc||exit 0
 
 cat <<EOL > $PREFIX/bin/TermUp
 bash $BASE_DIR/lib/setup_termux.sh
